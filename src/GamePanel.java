@@ -13,7 +13,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
 Paddle paddle = new Paddle(50,50,60,10);
-ObjectManager objectmanager = new ObjectManager();
+ObjectManager objectmanager = new ObjectManager(paddle);
 final int MENU = 0;
 final int GAME = 1;
 final int END = 2;
@@ -46,11 +46,21 @@ void updateEndState()  {
 }
 	private void drawEndState(Graphics g) {
 	// TODO Auto-generated method stub
-	
+		 g.setColor(Color.RED);
+		 g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		 g.setFont(titleFont);
+		 g.setColor(Color.YELLOW);
+		 g.drawString("Game Over", 151, 100);
+		 g.setFont(smallTitleFont);
+		 g.drawString("You killed"+objectmanager.getScore()+" enemies", 150, 400);
+		 g.setFont(middleTitleFont);
+		 g.drawString("Press ENTER to start", 100, 600);
 }
 	private void drawGameState(Graphics g) {
 	// TODO Auto-generated method stub
-	
+		 g.setColor(Color.BLACK);
+		 g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		 objectmanager.draw(g);
 }
 	private void drawMenuState(Graphics g) {
 	// TODO Auto-generated method stub
