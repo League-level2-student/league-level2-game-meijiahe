@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,28 +17,67 @@ void addProjectile(Projectile projectile){
 }
 ArrayList<Block> blocks = new ArrayList<Block>();
 Random random = new Random();
-void addAlien() {
+void addBlock() {
 	  blocks.add(new Block(random.nextInt(breakout.WIDTH),0,50,50));
 }
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+void update(){
+	 for (int i=0;i<blocks.size();i++) {
+		blocks.get(i).update(); 
+	 }
+		 for (int i=0;i<projectiles.size();i++) {
+			projectiles.get(i).update(); 
+		 }
+		 checkCollision();
+		 purgeObjects();
+		 paddle.update();
+ }
+void draw(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+  for (int i=0;i<blocks.size();i++) {
+	  blocks.get(i).draw(g);
+  }
+  paddle.draw(g);
+	  for (int i=0;i<projectiles.size();i++) {
+		  projectiles.get(i).draw(g);
+	  }
 	}
 
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
+void purgeObjects() {
+	for (int i=blocks.size()-1;i>=0;i--) {
+		  if (blocks.get(i).isActive==false) {
+			  blocks.remove(i);
+		  }
+	  }
+	  for (int i=projectiles.size()-1;i>=0;i--) {
+		  if (projectiles.get(i).isActive==false) {
+			  projectiles.remove(i);
+}
+	  }
+}
+public int getScore() {
+	return score;
+}
 
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+	addBlock();
+} 
 
-	public String getScore() {
-		// TODO Auto-generated method stub
-		return null;
+	void checkCollision() {
+		for (int i=0;i<blocks.size();i++) {
+			if (paddle.collisionBox.intersects(blocks.get(i).collisionBox)) {
+				paddle.isActive=false;
+				blocks.get(i).isActive=false;
+			}
+			for (int k=0;k<projectiles.size();k++) {
+			if (projectiles.get(k).collisionBox.intersects(blocks.get(i).collisionBox)) {
+				score++;
+				blocks.get(i).isActive=false;
+			}
+			}
+		}
 	}
 	
 }
