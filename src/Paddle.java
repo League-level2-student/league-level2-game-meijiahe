@@ -38,4 +38,8 @@ public void down() {
 		// TODO Auto-generated method stub
 		
 	}
+	public Projectile getProjectile() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

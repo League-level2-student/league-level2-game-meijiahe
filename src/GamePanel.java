@@ -13,7 +13,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
 Paddle paddle = new Paddle(50,50,60,10);
-ObjectManager objectmanager = new ObjectManager(paddle);
+Projectile ball = new Projectile(50,50,60,10);
+ObjectManager objectmanager = new ObjectManager(paddle,ball);
 final int MENU = 0;
 final int GAME = 1;
 final int END = 2;
@@ -74,6 +75,11 @@ void updateEndState()  {
 		 g.setFont(middleTitleFont);
 		 g.drawString("Press SPACE for instructions", 50, 600);
 }
+	GamePanel(){
+		 Timer frameDraw = new Timer (1000/60, this);
+		 frameDraw.start();
+	 }
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -83,7 +89,49 @@ void updateEndState()  {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
+		    if (currentState == END) {
+		        currentState = MENU;
+		        paddle=new Paddle(250,700,50,50);
+		        ball=new Projectile(200,650,50,50)
+		        objectmanager = new ObjectManager(paddle,ball);
+		    }
+		    else {
+		        currentState++;
+		        if (currentState==GAME) {
+		        	startGame();
+		        }
+		        if (GAME==END) {
+		        	blockSpawn.stop();
+		        }
+		    }
+		    
+		}   
+		if (e.getKeyCode()==KeyEvent.VK_UP) {
+		    System.out.println("UP");
+		 paddle.up();
+		}
+		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
+		    System.out.println("DOWN");
+		    paddle.down();
+		}
+		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
+		    System.out.println("RIGHT");
+		    paddle.right();
+		}
+		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
+		    System.out.println("LEFT");
+		    paddle.left();
+		}
+		if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+			objectmanager.addProjectile(paddle.getProjectile());
+		}
 		
+	}
+	 void startGame() {
+		// TODO Auto-generated method stub
+		 blockSpawn = new Timer(1000 , objectmanager);
+		    blockSpawn.start();
 	}
 
 	@Override
@@ -95,6 +143,15 @@ void updateEndState()  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(currentState == MENU){
+		    updateMenuState();
+		}else if(currentState == GAME){
+		    updateGameState();
+		}else if(currentState == END){
+		    updateEndState();
+		}
+		System.out.println("action");
+		repaint();
 		
 	}
 

@@ -7,10 +7,13 @@ import java.util.Random;
 
 public class ObjectManager implements ActionListener{
 Paddle paddle;
+Projectile ball;
 int score=0;
-ObjectManager (Paddle paddle){
+ObjectManager (Paddle paddle , Projectile ball){
 	  this.paddle=paddle;
+	  this.ball=ball;
 }
+
 ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 void addProjectile(Projectile projectile){
 	  projectiles.add(projectile);
