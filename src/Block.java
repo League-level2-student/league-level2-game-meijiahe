@@ -3,7 +3,7 @@ import java.awt.Graphics;
 
 public class Block extends GameObject{
 	Color colors=Color.YELLOW;
-	Block(int x, int y, int width, int height) {
+	Block(int x,  int y,  int width, int height) {
 		super(x, y, width, height);
 		speed=1;
 	}
@@ -12,7 +12,7 @@ public class Block extends GameObject{
 	    	g.fillRect(x, y, width, height);
 	}
 	void update(){
-		y+=speed;
+		
 		super.update();
 	}
 }

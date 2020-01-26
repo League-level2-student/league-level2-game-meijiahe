@@ -9,19 +9,28 @@ public class ObjectManager implements ActionListener{
 Paddle paddle;
 Projectile ball;
 int score=0;
+Random random = new Random();
+ArrayList<Block> blocks = new ArrayList<Block>();
+ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 ObjectManager (Paddle paddle , Projectile ball){
 	  this.paddle=paddle;
 	  this.ball=ball;
+	  setupBlock();
 }
-
-ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+void setupBlock () {
+	for (int i=0;i<5;i++) {
+for (int i1=0; i1<4;i1++) {
+	Block block =new Block(i*45,i1*45,40,40);
+	addBlock(block);
+}
+	}
+}
 void addProjectile(Projectile projectile){
 	  projectiles.add(projectile);
 }
-ArrayList<Block> blocks = new ArrayList<Block>();
-Random random = new Random();
-void addBlock() {
-	  blocks.add(new Block(random.nextInt(breakout.WIDTH),0,50,50));
+
+public void addBlock(Block blockk) {
+	  blocks.add(blockk);
 }
 void update(){
 	 for (int i=0;i<blocks.size();i++) {
@@ -65,8 +74,7 @@ public int getScore() {
 @Override
 public void actionPerformed(ActionEvent e) {
 	// TODO Auto-generated method stub
-	addBlock();
-} 
+	} 
 
 	void checkCollision() {
 		for (int i=0;i<blocks.size();i++) {

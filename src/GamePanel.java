@@ -93,7 +93,7 @@ void updateEndState()  {
 		    if (currentState == END) {
 		        currentState = MENU;
 		        paddle=new Paddle(250,700,50,50);
-		        ball=new Projectile(200,650,50,50)
+		        ball=new Projectile(200,650,50,50);
 		        objectmanager = new ObjectManager(paddle,ball);
 		    }
 		    else {
