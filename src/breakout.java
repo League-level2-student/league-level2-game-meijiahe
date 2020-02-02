@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 public class breakout {
 	GamePanel gamepanel = new GamePanel();
 	JFrame frame = new JFrame();
-	final static int WIDTH= 500;
+	final static int WIDTH= 535;
 	final static int HEIGHT= 800;
 public static void main(String[] args) {
 	breakout breakouter = new breakout();

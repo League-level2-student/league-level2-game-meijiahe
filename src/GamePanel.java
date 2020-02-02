@@ -12,9 +12,9 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
-Paddle paddle = new Paddle(50,50,60,10);
+Paddle paddle = new Paddle(50,50,5,100);
 Projectile ball = new Projectile(50,50,60,10);
-ObjectManager objectmanager = new ObjectManager(paddle,ball);
+ObjectManager objectmanager;
 final int MENU = 0;
 final int GAME = 1;
 final int END = 2;
@@ -22,6 +22,11 @@ int currentState = MENU;
 Font titleFont = new Font ("Arial", Font.PLAIN, 48);
 Font smallTitleFont = new Font ("Arial", Font.PLAIN, 20);
 Font middleTitleFont = new Font ("Arial", Font.PLAIN, 30);
+GamePanel(){
+	Timer frameDraw = new Timer (1000/60, this);
+	 frameDraw.start();
+	  objectmanager = new ObjectManager(paddle,ball);
+}
 @Override
 public void paintComponent(Graphics g) {
 	if(currentState == MENU){
@@ -59,8 +64,6 @@ void updateEndState()  {
 }
 	private void drawGameState(Graphics g) {
 	// TODO Auto-generated method stub
-		 g.setColor(Color.BLACK);
-		 g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
 		 objectmanager.draw(g);
 }
 	private void drawMenuState(Graphics g) {
@@ -75,10 +78,7 @@ void updateEndState()  {
 		 g.setFont(middleTitleFont);
 		 g.drawString("Press SPACE for instructions", 50, 600);
 }
-	GamePanel(){
-		 Timer frameDraw = new Timer (1000/60, this);
-		 frameDraw.start();
-	 }
+	
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -92,7 +92,7 @@ void updateEndState()  {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    if (currentState == END) {
 		        currentState = MENU;
-		        paddle=new Paddle(250,700,50,50);
+		        paddle=new Paddle(250,700,80,10);
 		        ball=new Projectile(200,650,50,50);
 		        objectmanager = new ObjectManager(paddle,ball);
 		    }
@@ -122,9 +122,6 @@ void updateEndState()  {
 		if (e.getKeyCode()==KeyEvent.VK_LEFT) {
 		    System.out.println("LEFT");
 		    paddle.left();
-		}
-		if (e.getKeyCode()==KeyEvent.VK_SPACE) {
-			objectmanager.addProjectile(paddle.getProjectile());
 		}
 		
 	}
