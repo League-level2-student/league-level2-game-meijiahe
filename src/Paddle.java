@@ -9,8 +9,9 @@ public class Paddle extends GameObject{
 		speed = 50;
 	}
 void draw(Graphics g) {
-	g.setColor(Color.RED);
+	g.setColor(Color.green);
 	g.fillRect(x, y, width, height);
+	super.draw(g);
 }
 public void right() {
 	if (x < breakout.WIDTH) {

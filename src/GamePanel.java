@@ -12,8 +12,8 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
-Paddle paddle = new Paddle(50,50,5,100);
-Projectile ball = new Projectile(50,50,60,10);
+Paddle paddle = new Paddle(50,50,200,10);
+Projectile ball = new Projectile(50,50,50,50);
 ObjectManager objectmanager;
 final int MENU = 0;
 final int GAME = 1;
@@ -147,7 +147,6 @@ void updateEndState()  {
 		}else if(currentState == END){
 		    updateEndState();
 		}
-		System.out.println("action");
 		repaint();
 		
 	}

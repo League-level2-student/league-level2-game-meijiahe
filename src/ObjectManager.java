@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ObjectManager implements ActionListener{
-Paddle paddle;
+public static Paddle paddle;
 Projectile ball;
-int score=0;
+public static int score=0;
 Random random = new Random();
-ArrayList<Block> blocks = new ArrayList<Block>();
+public static ArrayList<Block> blocks = new ArrayList<Block>();
 ObjectManager (Paddle paddle , Projectile ball){
 	  this.paddle=paddle;
 	  this.ball=ball;
@@ -34,10 +34,10 @@ void update(){
 		blocks.get(i).update(); 
 	 }
 		
-		 checkCollision();
 		 purgeObjects();
 		 paddle.update();
 		 ball.update();
+		 checkCollision();
  }
 void draw(Graphics g) {
 		g.setColor(Color.BLACK);
@@ -69,15 +69,14 @@ public void actionPerformed(ActionEvent e) {
 
 	void checkCollision() {
 		for (int i=0;i<blocks.size();i++) {
-			if (paddle.collisionBox.intersects(blocks.get(i).collisionBox)) {
-				paddle.isActive=false;
-				blocks.get(i).isActive=false;
+			if (paddle.collisionBox.intersects(ball.collisionBox)) {
+				//ball.bounce();
 			}
 			
 			if (ball.collisionBox.intersects(blocks.get(i).collisionBox)) {
 				score++;
 				blocks.get(i).isActive=false;
-				ball.bounce();
+				//ball.bounce();
 			}
 			
 		}
