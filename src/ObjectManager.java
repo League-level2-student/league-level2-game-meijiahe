@@ -47,7 +47,7 @@ void draw(Graphics g) {
   }
   paddle.draw(g);
 ball.draw(g);
-	  
+	  g.drawString(score+"",breakout.WIDTH-50, 20);
 	}
 
 void purgeObjects() {

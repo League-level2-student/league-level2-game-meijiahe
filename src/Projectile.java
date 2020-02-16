@@ -15,6 +15,8 @@ int collide;
 		
 	}
 	void update() {
+		speed=10+ObjectManager.score/10;
+		checkBoundary();
 		if (checkCollision(x+speedx,y+speedy)) {
 			bounce(collide);
 		}
@@ -23,14 +25,16 @@ int collide;
 		y+=speedy;
 		}
 		super.update();
-		checkBoundary();
+		
 	}
 void draw(Graphics g) {
 	g.setColor(Color.blue);
 	g.fillOval(x, y, width, height);
 	super.draw(g);
 }
-
+void timer () {
+	//Timer time = new Timer();
+}
 
 void bounce(int direct){
 	if (direct==0||direct==2) {
@@ -39,23 +43,19 @@ void bounce(int direct){
 	if (direct==1||direct==2) {
 		speedy=-speedy;
 	}
-	
-	speedx=-speedx;
-	speedy=-speedy;
-	System.out.println("hh");
 }
 void checkBoundary() {
-	if (x < breakout.WIDTH) {
-		speedx=-speedx;
+	if (x > breakout.WIDTH-width) {
+		speedx=-speed;
 	}
-	if(x>0) {
-		speedx=-speedx;
+	if(x<0) {
+		speedx=speed;
 	}
-	if(y<breakout.HEIGHT) {
-		speedy=-speedy;
+	if(y>breakout.HEIGHT) {
+		speedy=-speed;
 	}
-	if(y>0) {
-		speedy=-speedy;
+	if(y<-height) {
+		speedy=speed;
 	}
 }
 boolean checkCollision(int x,int y) {
@@ -69,7 +69,18 @@ boolean checkCollision(int x,int y) {
 		if (rect.intersects(ObjectManager.blocks.get(i).collisionBox)) {
 			ObjectManager.score++;
 			ObjectManager.blocks.get(i).isActive=false;
-			collide=2;
+			int bx = ObjectManager.blocks.get(i).x+ObjectManager.blocks.get(i).width/2;
+			int by=ObjectManager.blocks.get(i).y+ObjectManager.blocks.get(i).width/2;
+			int xDif=Math.abs(rect.x-bx);
+			int yDif=Math.abs(rect.y-by);
+			if (xDif>yDif) {
+				collide=0;
+			}
+			else {
+				collide=1;
+				
+			}
+			
 			return true;
 		}
 	

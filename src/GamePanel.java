@@ -12,8 +12,8 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
-Paddle paddle = new Paddle(50,50,200,10);
-Projectile ball = new Projectile(50,50,50,50);
+Paddle paddle = new Paddle(200,500,200,10);
+Projectile ball = new Projectile(200,460,50,50);
 ObjectManager objectmanager;
 final int MENU = 0;
 final int GAME = 1;
