@@ -8,7 +8,7 @@ int speedy;
 int collide;
 	Projectile (int x, int y, int width, int height){
 		super(x, y, width, height);
-		speed=10;
+		speed=7;
 		speedx=speed;
 		speedy=speed;
 		
@@ -68,7 +68,7 @@ boolean checkCollision(int x,int y) {
 		
 		if (rect.intersects(ObjectManager.blocks.get(i).collisionBox)) {
 			ObjectManager.score++;
-			ObjectManager.blocks.get(i).isActive=false;
+			ObjectManager.blocks.get(i).takeDamage();
 			int bx = ObjectManager.blocks.get(i).x+ObjectManager.blocks.get(i).width/2;
 			int by=ObjectManager.blocks.get(i).y+ObjectManager.blocks.get(i).width/2;
 			int xDif=Math.abs(rect.x-bx);
@@ -80,11 +80,14 @@ boolean checkCollision(int x,int y) {
 				collide=1;
 				
 			}
-			
 			return true;
 		}
 	
 	}
 	return false;
+}
+void teleportToPaddle () {
+	this.x=ObjectManager.paddle.x+ObjectManager.paddle.width/2;
+	this.y=ObjectManager.paddle.y-height-10;
 }
 }

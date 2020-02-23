@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
-Paddle paddle = new Paddle(200,500,200,10);
+Paddle paddle = new Paddle(200,500,100,10);
 Projectile ball = new Projectile(200,460,50,50);
 ObjectManager objectmanager;
 final int MENU = 0;
@@ -23,7 +23,7 @@ Font titleFont = new Font ("Arial", Font.PLAIN, 48);
 Font smallTitleFont = new Font ("Arial", Font.PLAIN, 20);
 Font middleTitleFont = new Font ("Arial", Font.PLAIN, 30);
 GamePanel(){
-	Timer frameDraw = new Timer (1000/60, this);
+	frameDraw = new Timer (1000/60, this);
 	 frameDraw.start();
 	  objectmanager = new ObjectManager(paddle,ball);
 }
