@@ -10,6 +10,7 @@ public class ObjectManager implements ActionListener {
 	Projectile ball;
 	public static int score = 0;
 	Random random = new Random();
+	Random n=new Random();
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
 
 	ObjectManager(Paddle paddle, Projectile ball) {
@@ -22,10 +23,22 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < 12; i++) {
 			for (int i1 = 0; i1 < 7; i1++) {
 				int hp=2;
-				if(i==8) {
-					hp=7;
-				}
 				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);
+				if(i==n.nextInt(10)) {
+					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				addBlock(block);
+			}
+		}
+	}
+	void setupBlock2() {
+		for (int i = 0; i < 12; i++) {
+			for (int i1 = 0; i1 < 7; i1++) {
+				int hp=4;
+				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);
+				if(i==n.nextInt(16)) {
+					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
 				addBlock(block);
 			}
 		}
@@ -39,7 +52,11 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).update();
 		}
-
+if(blocks.size()==0) {
+	ball.x=400;
+	ball.y=600;
+	setupBlock2();
+}
 		purgeObjects();
 		paddle.update();
 		ball.update();
