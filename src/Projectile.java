@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.swing.JOptionPane;
+
 public class Projectile extends GameObject{
 int speedx;
 int speedy;
@@ -15,7 +17,7 @@ int collide;
 		
 	}
 	void update() {
-		speed=10+ObjectManager.score/10;
+		//speed=10+ObjectManager.score/10;
 		checkBoundary();
 		if (checkCollision(x+speedx,y+speedy)) {
 			bounce(collide);
@@ -53,6 +55,8 @@ void checkBoundary() {
 	}
 	if(y>breakout.HEIGHT) {
 		speedy=-speed;
+		JOptionPane.showMessageDialog(null,"GAME OVER");
+		System.exit(0);
 	}
 	if(y<-height) {
 		speedy=speed;
@@ -67,7 +71,15 @@ boolean checkCollision(int x,int y) {
 		}
 		
 		if (rect.intersects(ObjectManager.blocks.get(i).collisionBox)) {
-			ObjectManager.score++;
+			if (speed<25) {
+				speed++;
+			}
+			if (ObjectManager.blocks.get(i) instanceof BonusBlock) {
+				ObjectManager.score+=10;
+			} 
+			else {
+				ObjectManager.score++;
+			}
 			ObjectManager.blocks.get(i).takeDamage();
 			int bx = ObjectManager.blocks.get(i).x+ObjectManager.blocks.get(i).width/2;
 			int by=ObjectManager.blocks.get(i).y+ObjectManager.blocks.get(i).width/2;

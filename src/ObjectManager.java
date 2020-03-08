@@ -8,6 +8,7 @@ import java.util.Random;
 public class ObjectManager implements ActionListener {
 	public static Paddle paddle;
 	Projectile ball;
+	int currentlevel=1;
 	public static int score = 0;
 	Random random = new Random();
 	Random n=new Random();
@@ -32,6 +33,8 @@ public class ObjectManager implements ActionListener {
 		}
 	}
 	void setupBlock2() {
+		ball=new Projectile(200,460,50,50);
+		ball.speed=9;
 		for (int i = 0; i < 12; i++) {
 			for (int i1 = 0; i1 < 7; i1++) {
 				int hp=4;
@@ -52,7 +55,8 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).update();
 		}
-if(blocks.size()==0) {
+if(blocks.size()==0&&currentlevel==1) {
+	currentlevel++;
 	ball.x=400;
 	ball.y=600;
 	setupBlock2();
