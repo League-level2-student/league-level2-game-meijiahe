@@ -24,17 +24,7 @@ public void left() {
 		x -= speed;
 }
 
-public void up() {
-	if (y < breakout.HEIGHT) {
-		y -= speed;
-	}
-}
 
-public void down() {
-	if (y > 0) {
-		y += speed;
-	}
-}
 	private void loadImage(String string) {
 		// TODO Auto-generated method stub
 		

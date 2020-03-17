@@ -71,9 +71,11 @@ boolean checkCollision(int x,int y) {
 		}
 		
 		if (rect.intersects(ObjectManager.blocks.get(i).collisionBox)) {
-			if (speed<25) {
-				speed++;
+			if (speed<20) {
+				speed=2+ObjectManager.score/2;
+				System.out.println(speed);
 			}
+			
 			if (ObjectManager.blocks.get(i) instanceof BonusBlock) {
 				ObjectManager.score+=10;
 			} 

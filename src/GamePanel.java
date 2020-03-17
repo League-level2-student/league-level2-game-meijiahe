@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 Timer frameDraw;
 Timer blockSpawn;
-Paddle paddle = new Paddle(200,500,100,10);
+Paddle paddle = new Paddle(200,550,130,10);
 Projectile ball = new Projectile(200,460,50,50);
 ObjectManager objectmanager;
 final int MENU = 0;
@@ -107,14 +107,7 @@ void updateEndState()  {
 		    }
 		    
 		}   
-		if (e.getKeyCode()==KeyEvent.VK_UP) {
-		    System.out.println("UP");
-		 paddle.up();
-		}
-		if (e.getKeyCode()==KeyEvent.VK_DOWN) {
-		    System.out.println("DOWN");
-		    paddle.down();
-		}
+	
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 		    System.out.println("RIGHT");
 		    paddle.right();
