@@ -42,6 +42,9 @@ public class ObjectManager implements ActionListener {
 				if(i==n.nextInt(16)) {
 					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
 				}
+				if(i==n.nextInt(16)) {
+					block=new BonusBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
 				addBlock(block);
 			}
 		}
@@ -55,17 +58,19 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).update();
 		}
-if(blocks.size()==0&&currentlevel==1) {
+		if(blocks.size()==0&&currentlevel==1) {
+		gotolevel2();
+		}
+		purgeObjects();
+		paddle.update();
+		ball.update();
+	}
+public void gotolevel2() {
 	currentlevel++;
 	ball.x=400;
 	ball.y=600;
 	setupBlock2();
 }
-		purgeObjects();
-		paddle.update();
-		ball.update();
-	}
-
 	void draw(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);

@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,10 +12,20 @@ public class BonusBlock extends Block implements ActionListener{
 		bonustimer=new Timer(10000, this);
 bonustimer.start();
 	}
+	
+	void takeDamage() {
+		super.takeDamage();
+		System.out.println("Bonus Block!");
+	}
+	void draw(Graphics g) {
+		g.setColor(Color.RED);
+		g.fillRect(x, y, width, height);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		health++;
+
 	}
 
 }
