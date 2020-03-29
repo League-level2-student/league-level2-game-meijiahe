@@ -1,7 +1,9 @@
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
 public class Projectile extends GameObject{
@@ -71,6 +73,8 @@ boolean checkCollision(int x,int y) {
 		}
 		
 		if (rect.intersects(ObjectManager.blocks.get(i).collisionBox)) {
+			System.out.println("It's a hit!");
+			playSound("428639__iut-paris8__quillard-charles-2018-gatecoin.wav");
 			if (speed<20) {
 				speed=2+ObjectManager.score/2;
 				System.out.println(speed);
@@ -99,6 +103,11 @@ boolean checkCollision(int x,int y) {
 	
 	}
 	return false;
+}
+private void playSound(String fileName) {
+	// TODO Auto-generated method stub
+	AudioClip sound = JApplet.newAudioClip(getClass().getResource(fileName));
+  	 sound.play();
 }
 void teleportToPaddle () {
 	this.x=ObjectManager.paddle.x+ObjectManager.paddle.width/2;
