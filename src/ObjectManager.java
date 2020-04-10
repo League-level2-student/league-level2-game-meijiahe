@@ -19,6 +19,10 @@ public class ObjectManager implements ActionListener {
 		this.ball = ball;
 		setupBlock();
 	}
+	
+	void setScore(int x) {
+		score = x;
+	}
 
 	void setupBlock() {
 		for (int i = 0; i < 12; i++) {
@@ -37,6 +41,7 @@ public class ObjectManager implements ActionListener {
 		ball=new Projectile(200,460,50,50);
 		ball.speed=9;
 		for (int i = 0; i < 12; i++) {
+			
 			for (int i1 = 0; i1 < 7; i1++) {
 				int hp=4;
 				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);

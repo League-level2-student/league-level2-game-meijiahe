@@ -56,11 +56,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void updateMenuState() {  
 	}
 	
-	void updateGameState() {  
+	void updateGameState() {
+		
 		objectmanager.update();
 		
 		if (paddle.isActive == true) { 
 		
+		}
+		else if (ball.checkDropOut()) {
+			
+			System.out.println("In GamePanel.java: ball drops out");
+			currentState = GAMEOVER;
+			
 		}
 		else {
 			currentState = END;
@@ -70,6 +77,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	void updateEndState()  {  
 		currentState = END;
+	}
+	
+	void updateRestartState()  {  
+		currentState = GAMEOVER;
+		ball.setPosition(200,460);
+		objectmanager.setupBlock();
+		paddle.setPosition(200, 550);
+		objectmanager.setScore(0);
 	}
 	
 	private void drawEndState(Graphics g) {
@@ -138,21 +153,29 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode()==KeyEvent.VK_ENTER) {
 		    
 			if (currentState == END) {
+				
 		        currentState = MENU;
 		        paddle = new Paddle(250,700,80,10);
 		        ball = new Projectile(200,650,50,50);
 		        objectmanager = new ObjectManager(paddle,ball);
 		        System.out.println("current state == END when press enter key");
+		        
+		    } else if (currentState == GAMEOVER) {
+		    	
+		    	System.out.println("current game state = GAMEOVER: " + currentState);
+		    	currentState = GAME;
+		    	startGame();
+		    	
 		    }
 		    else {
-		        
+		    	
+		    	System.out.println("current state START when press enter key");
 		    	currentState++;
 		    	
 		        if (currentState == GAME) {
 		        	startGame();
+		        	
 		        }
-		        
-		        System.out.println("current game state " + currentState);
 		        
 //		        if (GAME==END) {
 //		        	blockSpawn.stop();
@@ -199,10 +222,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 		    updateGameState();
 		    
+		    if (ball.checkDropOut()) {
+				
+				System.out.println("In GamePanel.java, actionPerformed: ball drops out");
+				currentState = GAMEOVER;
+				updateRestartState();
+			}
+		    
 		}else if(currentState == END){
 			// when finish level 1
-			System.out.println("Run into END state!!!");
+			
 		    updateEndState();
+		    
+		}else if (currentState == GAMEOVER) {
+			
+			updateRestartState();
 		}
 		repaint();
 		

@@ -25,6 +25,11 @@ public class Paddle extends GameObject{
 		if (x > 0)
 			x -= speed;
 	}
+	
+	void setPosition(int newX, int newY) {
+		x = newX;
+		y = newY;
+	}
 
 	private void loadImage(String string) {
 		// TODO Auto-generated method stub
