@@ -8,22 +8,23 @@ public class Paddle extends GameObject{
 		super(x, y, width, height);
 		speed = 50;
 	}
-void draw(Graphics g) {
-	g.setColor(Color.green);
-	g.fillRect(x, y, width, height);
-	super.draw(g);
-}
-public void right() {
-	if (x < breakout.WIDTH) {
-		x += speed;
+
+	void draw(Graphics g) {
+		g.setColor(Color.green);
+		g.fillRect(x, y, width, height);
+		super.draw(g);
 	}
-}
+	
+	public void right() {
+		if (x + width < breakout.WIDTH) {
+			x += speed;
+		}
+	}
 
-public void left() {
-	if (x > 0)
-		x -= speed;
-}
-
+	public void left() {
+		if (x > 0)
+			x -= speed;
+	}
 
 	private void loadImage(String string) {
 		// TODO Auto-generated method stub

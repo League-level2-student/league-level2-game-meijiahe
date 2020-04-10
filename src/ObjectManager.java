@@ -33,6 +33,7 @@ public class ObjectManager implements ActionListener {
 		}
 	}
 	void setupBlock2() {
+		System.out.println("in level 2 right now");
 		ball=new Projectile(200,460,50,50);
 		ball.speed=9;
 		for (int i = 0; i < 12; i++) {
@@ -58,25 +59,31 @@ public class ObjectManager implements ActionListener {
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).update();
 		}
-		if(blocks.size()==0&&currentlevel==1) {
-		gotolevel2();
+		
+		if(blocks.size() == 0 && currentlevel==1) {
+			gotolevel2();
 		}
+		
 		purgeObjects();
 		paddle.update();
 		ball.update();
 	}
-public void gotolevel2() {
-	currentlevel++;
-	ball.x=400;
-	ball.y=600;
-	setupBlock2();
-}
+
+	public void gotolevel2() {
+		currentlevel++;
+		ball.x=400;
+		ball.y=600;
+		setupBlock2();
+	}
+	
 	void draw(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).draw(g);
 		}
+		
 		paddle.draw(g);
 		ball.draw(g);
 		g.drawString(score + "", breakout.WIDTH - 50, 20);
