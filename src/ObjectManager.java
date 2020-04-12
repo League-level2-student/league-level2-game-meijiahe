@@ -8,10 +8,10 @@ import java.util.Random;
 public class ObjectManager implements ActionListener {
 	public static Paddle paddle;
 	Projectile ball;
-	int currentlevel=1;
+	int currentlevel = 1;
 	public static int score = 0;
 	Random random = new Random();
-	Random n=new Random();
+	Random n = new Random();
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
 
 	ObjectManager(Paddle paddle, Projectile ball) {
@@ -23,7 +23,11 @@ public class ObjectManager implements ActionListener {
 	void setScore(int x) {
 		score = x;
 	}
-
+	
+	void clearBlocks()
+	{
+		blocks = new ArrayList<Block>();
+	}
 	void setupBlock() {
 		for (int i = 0; i < 12; i++) {
 			for (int i1 = 0; i1 < 7; i1++) {
@@ -91,6 +95,8 @@ public class ObjectManager implements ActionListener {
 		
 		paddle.draw(g);
 		ball.draw(g);
+		
+		g.setColor(Color.YELLOW);
 		g.drawString(score + "", breakout.WIDTH - 50, 20);
 	}
 

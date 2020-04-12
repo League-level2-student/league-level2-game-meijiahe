@@ -31,7 +31,7 @@ public class Block extends GameObject{
 		else {
 			health--;
 		}
-		System.out.println(health);
+		System.out.println("health :" + health);
 	}
 	
 	void update(){

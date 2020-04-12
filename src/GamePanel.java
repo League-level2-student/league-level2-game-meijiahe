@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
+	
 	Timer frameDraw;
 	Timer blockSpawn;
 	Paddle paddle = new Paddle(200,550,140,10);
@@ -19,6 +20,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	
+	
+	final int INSTRUCTION = 200;
 	final int GAMEOVER = 100;
 	
 	int currentState = MENU;
@@ -50,10 +53,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 			drawRestartState(g);
 			
+		}else if(currentState == INSTRUCTION) {
+			drawInstructionState(g);
 		}
 	}
 	
 	void updateMenuState() {  
+		currentState = MENU;
 	}
 	
 	void updateGameState() {
@@ -65,7 +71,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		else if (ball.checkDropOut()) {
 			
-			System.out.println("In GamePanel.java: ball drops out");
+			//System.out.println("In GamePanel.java: ball drops out");
 			currentState = GAMEOVER;
 			
 		}
@@ -79,9 +85,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		currentState = END;
 	}
 	
+	
+	void updateInstructionState()  {  
+		currentState = INSTRUCTION;
+	}
+	
 	void updateRestartState()  {  
 		currentState = GAMEOVER;
 		ball.setPosition(200,460);
+		objectmanager.clearBlocks();
 		objectmanager.setupBlock();
 		paddle.setPosition(200, 550);
 		objectmanager.setScore(0);
@@ -115,25 +127,43 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
-		g.drawString("BREAKOUT", 22, 100);
-		g.setFont(smallTitleFont);
-		g.drawString("Press ENTER to start", 150, 400);
+		g.drawString("BREAKOUT", 30, 100);
+		g.setFont(middleTitleFont);
+		g.drawString("Press ENTER to start", 40, 320);
 		g.setFont(middleTitleFont);
 		g.drawString("Press SPACE for instructions", 50, 600);
 	}
+	
+	private void drawInstructionState(Graphics g) {
+		// TODO Auto-generated method stub
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+			g.setFont(titleFont);
+			g.setColor(Color.BLUE);
+			g.drawString("BREAKOUT", 30, 100);
+			g.setFont(smallTitleFont);
+			g.drawString("Move the paddle using left OR right key to play!", 40, 280);
+			g.drawString("Try to kill all blocks without letting " , 40, 320);
+			g.drawString("the ball drop out of the screen.", 40, 340);
+			g.setFont(middleTitleFont);
+			g.drawString("Press SPACE return to the MENU", 50, 600);
+		}
 	
 	private void drawRestartState(Graphics g) {
 		// TODO Auto-generated method stub
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
 		g.setFont(titleFont);
-		g.setColor(Color.RED);
+		g.setColor(Color.YELLOW);
 		g.drawString("Game Over", 22, 100);
 		g.setFont(smallTitleFont);
-		g.drawString("Press ENTER to restart", 150, 400);
-		//g.setFont(middleTitleFont);
-		//g.drawString("Press SPACE for instructions", 50, 600);
+		g.drawString("Press ENTER to restart!", 120, 340);
+		
+		g.drawString("Press SPACE to exit the game", 120, 500);
 	}
+	
+	
+	
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -146,7 +176,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		
 		if (e.getKeyCode()==KeyEvent.VK_SPACE) {
-			
+			if (currentState == MENU) {
+				currentState = INSTRUCTION;
+			} else if (currentState == INSTRUCTION ){
+				currentState = MENU;
+			} else if (currentState == GAMEOVER ) {
+				System.exit(0);
+			}
 			
 		}
 		
@@ -162,15 +198,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		        
 		    } else if (currentState == GAMEOVER) {
 		    	
-		    	System.out.println("current game state = GAMEOVER: " + currentState);
+		    	//System.out.println("current game state = GAMEOVER: " + currentState);
 		    	currentState = GAME;
 		    	startGame();
 		    	
 		    }
-		    else {
+		    else if (currentState == MENU) {
+		    	startGame();
 		    	
-		    	System.out.println("current state START when press enter key");
-		    	currentState++;
+		    	currentState = GAME;
+		    }
+			
+		    else{
+		    	
+		    	//startGame();
+		    	//System.out.println("current state START when press enter key");
+		    	//currentState++;
 		    	
 		        if (currentState == GAME) {
 		        	startGame();
@@ -181,7 +224,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 //		        	blockSpawn.stop();
 //		        	System.out.println(" in timer block, current game state " + currentState);
 //		        }
-		    }
+		   }
+			
 		} 
 		
 		if (e.getKeyCode()==KeyEvent.VK_Q) {
@@ -217,6 +261,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if(currentState == MENU){
 		    
 			updateMenuState();
+			//System.out.println("In GamePanel.java, actionPerformed currentState = MENU");
 		    
 		}else if(currentState == GAME){
 			
@@ -227,6 +272,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				System.out.println("In GamePanel.java, actionPerformed: ball drops out");
 				currentState = GAMEOVER;
 				updateRestartState();
+				
 			}
 		    
 		}else if(currentState == END){
@@ -237,7 +283,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}else if (currentState == GAMEOVER) {
 			
 			updateRestartState();
+			
+		}else if (currentState == INSTRUCTION) {
+			updateInstructionState();
 		}
+		
 		repaint();
 		
 	}
