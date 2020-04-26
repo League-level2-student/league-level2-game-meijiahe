@@ -67,6 +67,29 @@ public class ObjectManager implements ActionListener {
 			}
 		}
 	}
+	void setupBlock3() {
+		System.out.println("in level 3 right now");
+		ball=new Projectile(200,460,50,50);
+		ball.speed=9;
+		for (int i = 0; i < 12; i++) {
+			
+			for (int i1 = 0; i1 < 7; i1++) {
+				int hp=4;
+				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);
+				if(i==n.nextInt(10)) {
+					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				if(i==n.nextInt(6)) {
+					block=new BonusBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				
+				if(i==n.nextInt(12)) {
+					block=new PunishBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				addBlock(block);
+			}
+		}
+	}
 
 	public void addBlock(Block blockk) {
 		blocks.add(blockk);
@@ -79,6 +102,9 @@ public class ObjectManager implements ActionListener {
 		
 		if(checkifwin() && currentlevel==1) {
 			gotolevel2();
+		}
+		if(checkifwin()&&currentlevel==2) {
+			gotolevel3();
 		}
 		
 		purgeObjects();
@@ -108,7 +134,13 @@ public class ObjectManager implements ActionListener {
 		ball.y=600;
 		setupBlock2();
 	}
-	
+	public void gotolevel3() {
+		currentlevel++;
+		ball.x=400;
+		ball.y=600;
+		setupBlock3();
+		
+	}
 	void draw(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);

@@ -192,16 +192,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (currentState == END) {
 				
 		        currentState = MENU;
-		        paddle = new Paddle(250,700,80,10);
-		        ball = new Projectile(200,650,50,50);
+		        paddle = new Paddle(200,650,140,10);
+		        ball = new Projectile(200,460,50,50);
 		        objectmanager = new ObjectManager(paddle,ball);
 		        System.out.println("current state == END when press enter key");
 		        
 		    } else if (currentState == GAMEOVER) {
-		    	
+		    	paddle = new Paddle(200,650,140,10);
+		        ball = new Projectile(200,460,50,50);
+		        objectmanager = new ObjectManager(paddle,ball);
 		    	//System.out.println("current game state = GAMEOVER: " + currentState);
 		    	currentState = GAME;
-		    	startGame();
+		    	//startGame();//
 		    	
 		    }
 		    else if (currentState == MENU) {
@@ -232,6 +234,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode()==KeyEvent.VK_Q) {
 		   objectmanager.gotolevel2();
 		}
+		if (e.getKeyCode()==KeyEvent.VK_W) {
+			   objectmanager.gotolevel3();
+			}
 		
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
 		    

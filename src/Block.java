@@ -21,6 +21,10 @@ public class Block extends GameObject{
 			g.setColor(Color.GRAY);
 		}
 	    	g.fillRect(x, y, width, height);
+	    	if (health>=c.length) {
+	    		g.setColor(Color.YELLOW);
+				g.drawString(health+"",x+10,y+10);
+	    	}
 	}
 	
 	void takeDamage() {

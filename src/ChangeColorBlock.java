@@ -8,7 +8,7 @@ public class ChangeColorBlock extends Block{
 	Random random = new Random();
 	Random n = new Random();
 	
-	Color [] c= {Color.red, Color.orange, Color.yellow, Color.green,  Color.blue,Color.magenta, Color.white};
+	Color [] c= {new Color(237, 139, 100),new Color(194, 111, 78),new Color(166, 66, 27),new Color(143, 54, 20),new Color(128, 46, 15),new Color(110, 38, 11),new Color(128, 38, 5)};
 	ChangeColorBlock(int x, int y, int width, int height, int health) {
 		
 		super(x, y, width, height, health);
@@ -24,8 +24,5 @@ public class ChangeColorBlock extends Block{
 		Projectile.color = c[n.nextInt(c.length)];
 		//}
 	}
-	void draw(Graphics g) {
-		g.setColor(Color.YELLOW);
-		g.fillRect(x, y, width, height);
-	}
+	
 }

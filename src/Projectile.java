@@ -24,7 +24,7 @@ public class Projectile extends GameObject{
 	
 	void resetSpeed() {
 		this.speedx = 2;
-		this.speedy = 2;
+		this.speedy = x;
 	}
 	
 	void update() {
