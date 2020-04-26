@@ -8,7 +8,7 @@ Timer healingtimer;
 	RehealingBlock(int x, int y, int width, int height, int health) {
 		super(x, y, width, height, health);
 		healingtimer=new Timer(10000, this);
-healingtimer.start();
+		healingtimer.start();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

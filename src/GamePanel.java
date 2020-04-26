@@ -13,8 +13,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	Timer frameDraw;
 	Timer blockSpawn;
-	Paddle paddle = new Paddle(200,550,140,10);
-	Projectile ball = new Projectile(200,460,50,50);
+	Paddle paddle = new Paddle(200,650,140,10);
+	public static Projectile ball = new Projectile(200,460,50,50);
 	ObjectManager objectmanager;
 	final int MENU = 0;
 	final int GAME = 1;
@@ -93,6 +93,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void updateRestartState()  {  
 		currentState = GAMEOVER;
 		ball.setPosition(200,460);
+		ball.resetSpeed();
 		objectmanager.clearBlocks();
 		objectmanager.setupBlock();
 		paddle.setPosition(200, 550);

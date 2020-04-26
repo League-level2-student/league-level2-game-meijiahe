@@ -11,6 +11,7 @@ public class Projectile extends GameObject{
 	int speedx;
 	int speedy;
 	int collide;
+	public static Color color = Color.blue;
 	
 	Projectile (int x, int y, int width, int height){
 		
@@ -19,6 +20,11 @@ public class Projectile extends GameObject{
 		speedx=speed;
 		speedy=speed;
 			
+	}
+	
+	void resetSpeed() {
+		this.speedx = 2;
+		this.speedy = 2;
 	}
 	
 	void update() {
@@ -38,7 +44,7 @@ public class Projectile extends GameObject{
 	}
 	
 	void draw(Graphics g) {
-		g.setColor(Color.blue);
+		g.setColor(color);
 		g.fillOval(x, y, width, height);
 		//super.draw(g);
 	}
@@ -114,7 +120,10 @@ public class Projectile extends GameObject{
 				
 				if ( ObjectManager.blocks.get(i) instanceof BonusBlock ) {
 					ObjectManager.score+=10;
-				} 
+				}
+				else if ( ObjectManager.blocks.get(i) instanceof PunishBlock ) {
+					ObjectManager.score-=10;
+				}
 				else {
 					ObjectManager.score++;
 				}

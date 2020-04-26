@@ -33,8 +33,12 @@ public class ObjectManager implements ActionListener {
 			for (int i1 = 0; i1 < 7; i1++) {
 				int hp=2;
 				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);
-				if(i==n.nextInt(10)) {
+				if(i==n.nextInt(12)) {
 					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				
+				if (i==n.nextInt(12)) {
+					block=new ChangeColorBlock(i * 45, i1 * 45, 40, 40, hp);
 				}
 				addBlock(block);
 			}
@@ -49,11 +53,15 @@ public class ObjectManager implements ActionListener {
 			for (int i1 = 0; i1 < 7; i1++) {
 				int hp=4;
 				Block block = new Block(i * 45, i1 * 45, 40, 40, hp);
-				if(i==n.nextInt(16)) {
+				if(i==n.nextInt(12)) {
 					block=new RehealingBlock(i * 45, i1 * 45, 40, 40, hp);
 				}
-				if(i==n.nextInt(16)) {
+				if(i==n.nextInt(12)) {
 					block=new BonusBlock(i * 45, i1 * 45, 40, 40, hp);
+				}
+				
+				if(i==n.nextInt(12)) {
+					block=new PunishBlock(i * 45, i1 * 45, 40, 40, hp);
 				}
 				addBlock(block);
 			}
@@ -69,7 +77,7 @@ public class ObjectManager implements ActionListener {
 			blocks.get(i).update();
 		}
 		
-		if(blocks.size() == 0 && currentlevel==1) {
+		if(checkifwin() && currentlevel==1) {
 			gotolevel2();
 		}
 		
@@ -77,7 +85,23 @@ public class ObjectManager implements ActionListener {
 		paddle.update();
 		ball.update();
 	}
-
+	boolean checkifwin() {
+		if (blocks.size()==0) {
+			return true;
+		}
+		boolean onlyifpunishbleft=true;
+		for (int i=0;i<blocks.size();i++){
+			if (!(blocks.get(i) instanceof PunishBlock)) {
+				onlyifpunishbleft=false;
+			}
+		}
+		if (onlyifpunishbleft==false) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 	public void gotolevel2() {
 		currentlevel++;
 		ball.x=400;

@@ -5,19 +5,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-public class BonusBlock extends Block implements ActionListener{
-	Timer bonustimer;
-	BonusBlock(int x, int y, int width, int height, int health) {
+public class PunishBlock extends Block implements ActionListener {
+	Timer punishtimer;
+	PunishBlock(int x, int y, int width, int height, int health) {
 		super(x, y, width, height, health);
-		bonustimer=new Timer(10000, this);
-bonustimer.start();
+		punishtimer=new Timer(10000, this);
+		punishtimer.start();
 	}
+	
 	
 	void takeDamage() {
 		super.takeDamage();
 		//super.health += 10;
-		System.out.println("Bonus Block!");
+		System.out.println("Punish Block!");
 	}
+	
+
 	void draw(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(x, y, width, height);
@@ -28,5 +31,4 @@ bonustimer.start();
 		// TODO Auto-generated method stub
 
 	}
-
 }
