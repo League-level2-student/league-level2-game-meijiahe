@@ -1,18 +1,28 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-	
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;	
 	Timer frameDraw;
 	Timer blockSpawn;
+	
 	Paddle paddle = new Paddle(200,650,140,10);
 	public static Projectile ball = new Projectile(200,460,50,50);
 	ObjectManager objectmanager;
@@ -33,7 +43,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		frameDraw = new Timer (1000/60, this);
 		frameDraw.start();
 		objectmanager = new ObjectManager(paddle,ball);
+		  if (needImage) {
+			    loadImage ("unnamed.jpg");
+			}
 	}
+	 void loadImage(String imageFile) {
+		    if (needImage) {
+		        try {
+		        	 System.out.println("It work!");
+		            image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+			    gotImage = true;
+			    
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		        needImage = false;
+		    }
+		}
+		
 	
 	@Override
 	public void paintComponent(Graphics g) {
@@ -122,10 +149,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		 objectmanager.draw(g);
 	}
 	
+
+	
+	
 	private void drawMenuState(Graphics g) {
-	// TODO Auto-generated method stub
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		if (gotImage) {
+			g.drawImage(image, 0, 0, breakout.WIDTH, breakout.HEIGHT, null);
+		} else {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
+		}
 		g.setFont(titleFont);
 		g.setColor(Color.RED);
 		g.drawString("BREAKOUT", 30, 100);
@@ -135,6 +171,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Press SPACE for instructions", 50, 600);
 	}
 	
+
 	private void drawInstructionState(Graphics g) {
 		// TODO Auto-generated method stub
 			g.setColor(Color.WHITE);

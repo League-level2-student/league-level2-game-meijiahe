@@ -2,8 +2,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 
 public class ObjectManager implements ActionListener {
 	public static Paddle paddle;
@@ -12,6 +15,7 @@ public class ObjectManager implements ActionListener {
 	public static int score = 0;
 	Random random = new Random();
 	Random n = new Random();
+	private GamePanel g;
 	public static ArrayList<Block> blocks = new ArrayList<Block>();
 
 	ObjectManager(Paddle paddle, Projectile ball) {
@@ -143,8 +147,6 @@ public class ObjectManager implements ActionListener {
 	}
 	void draw(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
-		
 		for (int i = 0; i < blocks.size(); i++) {
 			blocks.get(i).draw(g);
 		}
@@ -164,6 +166,7 @@ public class ObjectManager implements ActionListener {
 		}
 
 	}
+	
 
 	public int getScore() {
 		return score;
