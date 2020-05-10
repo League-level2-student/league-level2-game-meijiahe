@@ -94,18 +94,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		objectmanager.update();
 		
 		if (paddle.isActive == true) { 
+//	System.out.println("paddle active??????????????????");
+		}
+	
+	else if (objectmanager.ball.checkDropOut()) {
 		
-		}
-		else if (ball.checkDropOut()) {
-			
-			//System.out.println("In GamePanel.java: ball drops out");
-			currentState = GAMEOVER;
-			
-		}
-		else {
+		System.out.println("In GamePanel.java: ball drops out");
+		currentState = GAMEOVER;
+		
+	}
+	else {
 			currentState = END;
 			
-		}
+	}
 	}
 	
 	void updateEndState()  {  
@@ -118,6 +119,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	void updateRestartState()  {  
+		System.out.println("after drop ou, updateRestartState");
 		currentState = GAMEOVER;
 		ball.setPosition(200,460);
 		ball.resetSpeed();
@@ -251,28 +253,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 		    else{
 		    	
-		    	//startGame();
-		    	//System.out.println("current state START when press enter key");
-		    	//currentState++;
-		    	
 		        if (currentState == GAME) {
 		        	startGame();
 		        	
 		        }
 		        
-//		        if (GAME==END) {
-//		        	blockSpawn.stop();
-//		        	System.out.println(" in timer block, current game state " + currentState);
-//		        }
 		   }
-			
 		} 
 		
 		if (e.getKeyCode()==KeyEvent.VK_Q) {
+			currentState = GAME;
 		   objectmanager.gotolevel2();
+		   //updateGameState();
 		}
 		if (e.getKeyCode()==KeyEvent.VK_W) {
-			   objectmanager.gotolevel3();
+			currentState = GAME;
+			  objectmanager.gotolevel3();
 			}
 		
 		if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
@@ -310,11 +306,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			
 		    updateGameState();
 		    
-		    if (ball.checkDropOut()) {
+		    if (objectmanager.ball.checkDropOut()) {
 				
 				System.out.println("In GamePanel.java, actionPerformed: ball drops out");
 				currentState = GAMEOVER;
-				updateRestartState();
 				
 			}
 		    
