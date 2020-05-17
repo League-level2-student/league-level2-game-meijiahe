@@ -148,6 +148,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	
 	private void drawGameState(Graphics g) {
 	// TODO Auto-generated method stub
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, breakout.WIDTH, breakout.HEIGHT);
 		 objectmanager.draw(g);
 	}
 	
@@ -199,7 +201,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(smallTitleFont);
 		g.drawString("Press ENTER to restart!", 120, 340);
 		
-		g.drawString("Press SPACE to exit the game", 120, 500);
+		g.drawString("Press SPACE to back to the menu", 120, 500);
 	}
 	
 	
@@ -221,7 +223,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else if (currentState == INSTRUCTION ){
 				currentState = MENU;
 			} else if (currentState == GAMEOVER ) {
-				System.exit(0);
+				currentState=MENU;
 			}
 			
 		}

@@ -113,10 +113,23 @@ public class Projectile extends GameObject{
 				System.out.println("It's a hit!");
 				playSound("428639__iut-paris8__quillard-charles-2018-gatecoin.wav");
 				
-				if ( speed < 20 ) {
+				if ( speed < 9 ) {
 					speed=2+ObjectManager.score/2;
+					if (speedx>=0) {
+						speedx=speed;
+					}
+					else {
+						speedx=-speed;
+					}
+					if (speedy>=0) {
+						speedy=speed;
+					}
+					else {
+						speedy=-speed;
+					}
 					//System.out.println(speed);
 				}
+				
 				
 				if ( ObjectManager.blocks.get(i) instanceof BonusBlock ) {
 					ObjectManager.score+=10;
